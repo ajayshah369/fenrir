@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fenrir-backend
+  labels:
+    ajay: {{ .Values.ajay }}
+spec:
+  selector:
+    matchLabels:
+      app: fenrir-backend
+  template:
+    metadata:
+      labels:
+        app: fenrir-backend
+    spec:
+      containers:
+        - name: fenrir-backend
+          image: docker.io/ajayshah369/fenrir-backend:latest
+          env:
+            - name: MONGO_HOST
+              value: mongo # Assuming the MongoDB service is named 'mongo'
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fenrir-backend
+spec:
+  selector:
+    app: fenrir-backend
+  ports:
+    - port: 80
+      targetPort: 8000

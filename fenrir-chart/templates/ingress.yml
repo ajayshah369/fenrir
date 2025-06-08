@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fenrir
+  labels:
+    name: fenrir
+spec:
+  rules:
+    - host: app.ezios.in
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: fenrir-frontend
+                port:
+                  number: 80
+    - host: backend.ezios.in
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: fenrir-backend
+                port:
+                  number: 80
+    - host: express.ezios.in
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: mongo-express
+                port:
+                  number: 80

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fenrir</title>
+    <style>
+      body {
+        background-color: #f5f5f5;
+        color: #333;
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+      }
+      .env-grid {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        gap: 12px 24px;
+        max-width: 700px;
+        margin: 50px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .env-key {
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #007acc;
+        padding: 8px 12px;
+        border-radius: 6px;
+      }
+      .env-value {
+        color: #333;
+        background-color: #e6f0fa;
+        padding: 8px 12px;
+        border-radius: 6px;
+        word-break: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hey, This is Fenrir</h1>
+
+    {% if data %}
+    <div
+      style="
+        max-width: 700px;
+        margin: 40px auto 0;
+        padding: 20px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <h2 style="margin-top: 0; color: #007acc">Data List</h2>
+      <ul style="padding-left: 20px; color: #333">
+        {% for name in data %}
+        <li>{{ name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- print values using a loop from a dictionary called env using jinja template -->
+    <div class="env-grid">
+      {% for key, value in env.items() %}
+      <div class="env-key">{{ key }}</div>
+      <div class="env-value">
+        {{ value[:200] }}{% if value|length > 200 %}...{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
